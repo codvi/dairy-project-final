@@ -6,7 +6,7 @@ require('dotenv').config();
 
 // CORS options
 const corsOptions = {
-    origin: 'https://farmosserver.netlify.app/login', // Replace with your client URL
+    origin: '*', // Allow all origins for testing
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
 };
