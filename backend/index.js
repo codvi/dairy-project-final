@@ -4,32 +4,48 @@ const cors = require('cors');
 const app = express();
 require('dotenv').config();
 
-app.use(cors());
-app.use(express.json()); 
+// CORS options
+const corsOptions = {
+    origin: 'https://farmosserver.netlify.app/login', // Replace with your client URL
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+};
+
+// Middleware
+app.use(cors(corsOptions));
+app.use(express.json());
+
+// Importing routes
 const farmerRoutes = require("./routes/farmer.js");
-const porductRouter = require('./routes/productRoutes.js');
+const productRouter = require('./routes/productRoutes.js');
 const salesRouter = require('./routes/salesRoute.js');
 const livestockRouter = require('./routes/livestockRoutes.js');
 const breedingRoutes = require('./routes/breedingRoutes.js');
-const healthRecordrouter = require('./routes/healthRecordRoutes.js');
+const healthRecordRouter = require('./routes/healthRecordRoutes.js');
 const expenseRouter = require('./routes/expenseRoutes.js');
 const netEarningRoute = require('./routes/netEarning.js');
 const aiRoute = require('./routes/aiRoute.js');
 const notificationRoutes = require('./routes/notificationRoutes.js');
 const adminRoutes = require('./routes/adminRoutes.js');
 
-
+// Use routes
 app.use(farmerRoutes);  
-app.use(porductRouter);
+app.use(productRouter);
 app.use(salesRouter); 
 app.use(livestockRouter);
 app.use(breedingRoutes);
-app.use(healthRecordrouter);
+app.use(healthRecordRouter);
 app.use(expenseRouter);
 app.use(netEarningRoute);
-app.use(aiRoute)
-app.use(notificationRoutes)
-app.use('/admin',adminRoutes)
-app.listen(3000, () => {
-    console.log(`Server is running on port ${process.env.PORT}`);
+app.use(aiRoute);
+app.use(notificationRoutes);
+app.use('/admin', adminRoutes);
+
+// Pre-flight request handling
+app.options('*', cors(corsOptions));
+
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
