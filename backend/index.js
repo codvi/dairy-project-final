@@ -6,7 +6,7 @@ require('dotenv').config();
 
 // CORS options
 const corsOptions = {
-    origin: 'https://farmosss.netlify.app',
+    origin: '*',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: ['Content-Type', 'Authorization'], // Add any other custom headers you need
     credentials: true,
