@@ -5,7 +5,7 @@ const app = express();
 require('dotenv').config();
 
 // Define allowed origins
-const allowedOrigins = ['https://yourdomain.com', 'https://anotherdomain.com']; // Add your allowed origins here
+const allowedOrigins = ['https://farmosss.netlify.app/']; // Add your allowed origins here
 
 // CORS options
 const corsOptions = {
