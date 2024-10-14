@@ -4,16 +4,26 @@ const cors = require('cors');
 const app = express();
 require('dotenv').config();
 
+// Define allowed origins
+const allowedOrigins = ['https://yourdomain.com', 'https://anotherdomain.com']; // Add your allowed origins here
+
 // CORS options
 const corsOptions = {
-    origin: '*',
+    origin: function(origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: ['Content-Type', 'Authorization'], // Add any other custom headers you need
     credentials: true,
 };
 
 // Middleware
-app.use("*",cors(corsOptions));
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Importing routes
